@@ -104,11 +104,11 @@
                   "sources": [
                     {% for source in episode.sources %}
                       {
-                        "file": {{source.link}},
+                        "file": "{{source.link}}",
 
                         "type": "mp4",
 
-                        "label": {{source.quality}}
+                        "label": "{{source.quality}}",
                       },
                     {% endfor %}
                   ],

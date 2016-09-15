@@ -307,8 +307,4 @@ class MovieEpisodeAdminView(ModelView):
         ))
     ]
 
-    form_choices = {
-        'quality': Source.QUALITIES
-    }
-
 
