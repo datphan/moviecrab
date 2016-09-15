@@ -11,8 +11,13 @@ from flask_admin.contrib.sqla import ModelView
 from flask_mail import Mail
 from flask_cors import CORS
 from flask_jwt import JWT
+from flask_bower import Bower
 
 from .auth.datastore import SQLAlchemyAuthDatastore
+from .movie.datastore import SQLAlchemyMovieDatastore
+from .genre.datastore import SQLAlchemyGenreDatastore
+from .people.datastore import SQLAlchemyPeopleDatastore
+from .tag.datastore import SQLAlchemyTagDatastore
 
 
 __all__ = ['init_apps', 'heroku', 'db', 'migrate', 'mail', 'auth_datastore']
@@ -27,8 +32,21 @@ jwt = JWT()
 
 # models must be imported before datastore initialization
 from .auth.models import User, Role
+from .people.models import People
+from .movie.models import Server, Movie, Episode
+from .genre.models import Genre
+from .tag.models import Tag
+from .country.models import Country
 
 auth_datastore = SQLAlchemyAuthDatastore(db)
+
+movie_datastore = SQLAlchemyMovieDatastore(db)
+
+genre_datastore = SQLAlchemyGenreDatastore(db)
+
+people_datastore = SQLAlchemyPeopleDatastore(db)
+
+tag_datastore = SQLAlchemyTagDatastore(db)
 
 
 def init_apps(app):
@@ -36,6 +54,22 @@ def init_apps(app):
         from flask_debugtoolbar import DebugToolbarExtension
 
         DebugToolbarExtension(app)
+
+    @app.context_processor
+    def inject_user():
+        return dict(
+                genres=genre_datastore.find_genre_list(),
+            )
+
+    from .movie.admin import MovieAdminView
+    from .people.admin import PeopleAdminView
+
+    from .main.views import MainView
+    from .movie.views import MovieView
+    from .genre.views import GenreView
+    from .tag.views import TagView
+
+    Bower(app)
 
     heroku.init_app(app)
     db.init_app(app)
@@ -51,5 +85,15 @@ def init_apps(app):
 
     admin.add_view(ModelView(User, db.session, category='Users'))
     admin.add_view(ModelView(Role, db.session, category='Users'))
+    admin.add_view(MovieAdminView(Movie, db.session, category='Movies'))
+    admin.add_view(ModelView(Genre, db.session, category='Movies'))
+    admin.add_view(ModelView(Tag, db.session, category='Movies'))
+    admin.add_view(ModelView(Server, db.session, category='Movies'))
+    admin.add_view(PeopleAdminView(People, db.session, category='Movies'))
 
     admin.init_app(app)
+
+    MainView.register(app)
+    MovieView.register(app)
+    GenreView.register(app)
+    TagView.register(app)

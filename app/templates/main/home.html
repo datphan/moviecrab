@@ -1,0 +1,272 @@
+{% extends "layout-main.html" %}
+
+
+{% block content %}
+<div class="movies-list-wrap mlw-topview">
+  <div class="ml-title">
+    <span class="pull-left">Suggestion <i class="fa fa-chevron-right ml10"></i></span>
+    <a href="http://123movies.to/movie/filter/all" class="pull-right cat-more">View more »</a>
+    <ul role="tablist" class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" role="tab" href="#movie-featured" aria-expanded="false">Featured</a>
+      </li>
+      <li><a onclick="ajaxContentBox('topview-today')" data-toggle="tab" role="tab" href="#topview-today" aria-expanded="false">Top viewed
+                        today</a>
+      </li>
+      <li><a onclick="ajaxContentBox('top-favorite')" data-toggle="tab" role="tab" href="#top-favorite" aria-expanded="false">Most Favorite</a>
+      </li>
+      <li><a onclick="ajaxContentBox('top-rating')" data-toggle="tab" role="tab" href="#top-rating" aria-expanded="false">Top Rating</a>
+      </li>
+      <li><a onclick="ajaxContentBox('top-imdb')" data-toggle="tab" role="tab" href="#top-imdb" aria-expanded="false">Top IMDb</a>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+  <div class="tab-content">
+    <div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
+
+      {% for movie in movie_list_featured %}
+        {% include "partials/movie-item.html" %}
+      {% endfor %}
+
+      <div class="clearfix"></div>
+    </div>
+    <div id="topview-today" class="movies-list movies-list-full tab-pane in fade">
+      <div id="content-box"></div>
+      <!--                        -->
+      <div class="clearfix"></div>
+    </div>
+    <div id="top-favorite" class="movies-list movies-list-full tab-pane in fade">
+      <div id="content-box"></div>
+      <!--                        -->
+      <div class="clearfix"></div>
+    </div>
+    <div id="top-rating" class="movies-list movies-list-full tab-pane in fade">
+      <div id="content-box"></div>
+      <!--                        -->
+      <div class="clearfix"></div>
+    </div>
+    <div id="top-imdb" class="movies-list movies-list-full tab-pane in fade">
+      <div id="content-box"></div>
+      <!--                        -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="content-kus" style="text-align: center; margin: 20px 0; padding: 15px;">
+  <!--                <script type="text/javascript">-->
+  <!--                    var ad_idzone = "1731454",-->
+  <!--                        ad_width = "728",-->
+  <!--                        ad_height = "90";-->
+  <!--                </script>-->
+  <!--                <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>-->
+  <!--                <noscript>-->
+  <!--                    <a href="http://main.exoclick.com/img-click.php?idzone=1731454" target="_blank">-->
+  <!--                        <img-->
+  <!--                            src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1731454&output=img&type=728x90"-->
+  <!--                            width="728" height="90">-->
+  <!--                    </a>-->
+  <!--                </noscript>-->
+
+
+  <!-- MarketGidComposite Start -->
+  <div id="MarketGidScriptRootC49934" style="min-height:250px;">
+    <div id="MarketGidPreloadC49934"> <a href="" target="_blank">Loading...</a> </div>
+    <script>
+      (function() {
+        var D = new Date(),
+          d = document,
+          b = 'body',
+          ce = 'createElement',
+          ac = 'appendChild',
+          st = 'style',
+          ds = 'display',
+          n = 'none',
+          gi = 'getElementById';
+        var i = d[ce]('iframe');
+        i[st][ds] = n;
+        d[gi]("MarketGidScriptRootC49934")[ac](i);
+        try {
+          var iw = i.contentWindow.document;
+          iw.open();
+          iw.writeln("<ht" + "ml><bo" + "dy></bo" + "dy></ht" + "ml>");
+          iw.close();
+          var c = iw[b];
+        } catch (e) {
+          var iw = d;
+          var c = d[gi]("MarketGidScriptRootC49934");
+        }
+        var dv = iw[ce]('div');
+        dv.id = "MG_ID";
+        dv[st][ds] = n;
+        dv.innerHTML = 49934;
+        c[ac](dv);
+        var s = iw[ce]('script');
+        s.async = 'async';
+        s.defer = 'defer';
+        s.charset = 'utf-8';
+        s.src = "//jsc.mgid.com/1/2/123movies.net.49934.js?t=" + D.getYear() + D.getMonth() + D.getDate() + D.getHours();
+        c[ac](s);
+      })();
+    </script>
+  </div>
+  <!-- MarketGidComposite End -->
+
+  <!--                <div id="MarketGidScriptRootC33608">-->
+  <!--                    <div id="MarketGidPreloadC33608">-->
+  <!--                        <a id="mg_add33608" href="" target="_blank">Place your ad here</a><br> <a href=""-->
+  <!--                                                                                                  target="_blank">Loading...</a>-->
+  <!--                    </div>-->
+  <!--                    <script>-->
+  <!--                        window.MGWidgetTitle33608 = "Promoted Content";-->
+  <!--                        (function () {-->
+  <!--                            var D = new Date(), d = document, b = 'body', ce = 'createElement', ac = 'appendChild', st = 'style', ds = 'display', n = 'none', gi = 'getElementById';-->
+  <!--                            var i = d[ce]('iframe');-->
+  <!--                            i[st][ds] = n;-->
+  <!--                            d[gi]("MarketGidScriptRootC33608")[ac](i);-->
+  <!--                            try {-->
+  <!--                                var iw = i.contentWindow.document;-->
+  <!--                                iw.open();-->
+  <!--                                iw.writeln("<ht" + "ml><bo" + "dy></bo" + "dy></ht" + "ml>");-->
+  <!--                                iw.close();-->
+  <!--                                var c = iw[b];-->
+  <!--                            }-->
+  <!--                            catch (e) {-->
+  <!--                                var iw = d;-->
+  <!--                                var c = d[gi]("MarketGidScriptRootC33608");-->
+  <!--                            }-->
+  <!--                            var dv = iw[ce]('div');-->
+  <!--                            dv.id = "MG_ID";-->
+  <!--                            dv[st][ds] = n;-->
+  <!--                            dv.innerHTML = 33608;-->
+  <!--                            c[ac](dv);-->
+  <!--                            var s = iw[ce]('script');-->
+  <!--                            s.async = 'async';-->
+  <!--                            s.defer = 'defer';-->
+  <!--                            s.charset = 'utf-8';-->
+  <!--                            s.src = "//jsc.mgid.com/1/2/123movies.net.33608.js?t=" + D.getYear() + D.getMonth() + D.getDate() + D.getHours();-->
+  <!--                            c[ac](s);-->
+  <!--                        })();-->
+  <!--                    </script>-->
+  <!--                </div>-->
+  <!-- MarketGidComposite End -->
+
+</div>
+
+
+<!--latest movies-->
+<div class="movies-list-wrap mlw-latestmovie">
+  <div class="ml-title">
+    <span class="pull-left">Latest Movies <i class="fa fa-chevron-right ml10"></i></span>
+    <a href="http://123movies.to/movie/filter/movie" class="pull-right cat-more">View more »</a>
+
+    <div class="clearfix"></div>
+  </div>
+  <div class="movies-list movies-list-full tab-pane in fade active">
+    {% for movie in movie_list_lastest %}
+
+      {% include "partials/movie-item.html" %}
+
+    {% endfor %}
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+<!--/latest movies-->
+
+<div class="content-kus" style="text-align: center; margin: 20px 0; padding: 15px;">
+
+
+  <iframe src="http://creative.wwwpromoter.com/6014?d=728x90" width="728" height="90" style="border: none;" frameborder="0" scrolling="no"></iframe>
+
+  <!--                <script src='//t.mdn2015x3.com/build/9cc5dd9f/v1/'></script>-->
+
+</div>
+
+<!--latest tv-series-->
+<div class="movies-list-wrap mlw-featured">
+  <div class="ml-title">
+    <span class="pull-left">Latest TV-Series <i class="fa fa-chevron-right ml10"></i></span>
+    <a href="http://123movies.to/movie/filter/series" class="pull-right cat-more">View more »</a>
+
+    <div class="clearfix"></div>
+  </div>
+  <div class="movies-list movies-list-full">
+    {% for movie in movie_list_tv %}
+
+      {% include "partials/movie-item.html" %}
+
+    {% endfor %}
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+<!--/latest tv-series-->
+
+
+<!--requested-->
+<div class="movies-list-wrap mlw-requested">
+  <div class="ml-title">
+    <span class="pull-left">Requested <i class="fa fa-chevron-right ml10"></i></span>
+    <a href="http://123movies.to/movie/filter/all/latest/all/all/all/1" class="pull-right cat-more">View
+                more »</a>
+  </div>
+  <div class="clearfix"></div>
+  <div class="movies-list movies-list-full">
+    {% for movie in movie_list_requested %}
+
+      {% include "partials/movie-item.html" %}
+
+    {% endfor %}
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  if (!jQuery.browser.mobile) {
+    $('.jt').qtip({
+      content: {
+        text: function(event, api) {
+          $.ajax({
+            url: api.elements.target.attr('data-url'),
+            type: 'GET',
+            success: function(data, status) {
+              // Process the data
+
+              // Set the content manually (required!)
+              api.set('content.text', data);
+            }
+          });
+        }, // The text to use whilst the AJAX request is loading
+        title: function(event, api) {
+          return $(this).attr('title');
+        }
+      },
+      position: {
+        my: 'top left', // Position my top left...
+        at: 'top right', // at the bottom right of...
+        viewport: $(window),
+        effect: false,
+        target: 'mouse',
+        adjust: {
+          mouse: false // Can be omitted (e.g. default behaviour),
+        },
+        show: {
+          effect: false
+        }
+      },
+      hide: {
+        fixed: true
+      },
+      style: {
+        classes: 'qtip-light qtip-bootstrap',
+        width: 320
+      }
+    });
+  }
+  $("img.lazy").lazyload({
+    effect: "fadeIn"
+  });
+</script>
+{% endblock %}

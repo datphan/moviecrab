@@ -1,0 +1,187 @@
+{% extends "movie/index.html" %}
+
+{% block html_head_script %}
+    {{ super() }}
+
+    <!-- Ads Propeller-->
+    <script type="text/javascript" src="//go.onclasrv.com/apu.php?zoneid=366832"></script>
+    <!-- Ads Propeller-->
+
+    <script src="{{ url_for('bower.static', filename='jwplayer/jwplayer.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+  {{super()}}
+{% endblock %}
+
+{% block content_movie_content %}
+  {{super()}}
+{% endblock %}
+    
+{% block content_movie_play %}
+  <div class="play-notice">
+    <div class="alert alert-warning" style="margin-bottom: 0; border-radius: 0;">
+      <i class="fa fa-warning mr5"></i> If the movie does not work, please try to stream it with other browser.
+    </div>
+  </div>
+  <div style="height: 500px;" id="media-player" class="cssload-center cssload-2x jw-skin-seven">
+    <div class="cssload"><span></span>
+    </div>
+  </div>
+  <div id="content-embed" style="display: none;">
+    <iframe id="iframe-embed" width="100%" height="500" scrolling="no" frameborder="0" src="" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+  </div>
+  <!-- Load player -->
+
+  <div id="bar-player">
+    <a href="#mv-info" class="btn bp-btn-light"><i class="fa fa-lightbulb-o"></i> <span></span></a>
+
+    <span id="button-favorite">
+        <a onclick="favorite(15589,2)" class="btn bp-btn-like"><i class="fa fa-heart"></i>Favorite</a>
+        <div class="popover fade top in popover-like" style="display: none;">
+              <div class="arrow" style="left: 50%;"></div>
+              <div class="popover-content">
+                  <p id="popover-notice"></p>
+                  <p class="mt10">
+                      <a href="javascript:void(0)" onclick="favorite(15589,2)" class="btn btn-success btn-sm"><i
+                              class="fa fa-heart"></i> Favorite</a><a href="javascript:void(0)"
+                                                                      class="btn btn-sm btn-default toggle-popover-like">Dismiss</a>
+                  </p>
+              </div>
+          </div>
+    </span>
+    <a href="#commentfb" class="btn bp-btn-review"><i class="fa fa-comments"></i>
+                <span>Comment (<span id="comment-count">0</span>)</span></a>
+    <a class="btn bp-btn-report hidden" data-target="#pop-report" data-toggle="modal" style="color: #fff000; float: right"><i class="fa fa-warning"></i> Report</a>
+
+    <div class="clearfix"></div>
+  </div>
+  <div class="mobile-btn">
+    <a class="btn btn-block btn-lg btn-success btn-01" target="_blank" href="http://players.123movies.to/stream.php"><i class="fa fa-play mr10"></i>Stream in HD</a>
+    <a class="btn btn-block btn-lg btn-success btn-02" target="_blank" href="http://players.123movies.to/download.php"><i class="fa fa-download mr10"></i>Download in HD</a>
+    <div class="clearfix"></div>
+  </div>
+  <div id="favorite-alert" style="display: none;">
+    <div class="alert alert-success" role="alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <i class="fa fa-check"></i> <span id="favorite-message"></span>
+    </div>
+  </div>
+  <div id="report-alert" style="display: none;">
+    <div class="alert alert-success" role="alert">
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <i class="fa fa-check"></i> Thanks for your report! We will fix it asap.
+    </div>
+  </div>
+
+  <div id="list-eps">
+    {% for name in servers %}
+    <div class="le-server server-active" id="server-10">
+      <div class="les-title">
+        <i class="fa fa-server mr5"></i>
+        <strong>{{name}}</strong>
+      </div>
+      <div class="les-content">
+        {% for episode in servers[name] %}
+        <a class="btn-eps first-ep last-ep active" href="#main" onclick="loadEpisode(10,467647)" episode-id="467647" id="ep-467647" title="CAM">{{episode.name}} {{episode.quality}}</a>
+        {% endfor %}
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    {% endfor %}
+    <div data-episodes="467762" id="server-backup"></div>
+    <script type="text/javascript">
+      jwplayer('media-player').setup({
+        "playlist": [
+          {
+            "sources": [
+              {
+                "file": "https://r5---sn-42u-nbos.googlevideo.com/videoplayback?requiressl=yes&id=5804432291bb7504&itag=18&source=webdrive&ttl=transient&app=explorer&ip=2405:4800:529c:c7a8:903a:6270:ce2a:b0e8&ipbits=0&expire=1473837766&sparams=expire,id,ip,ipbits,itag,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=4ACA972D61A243D8C3269AC2FB363FFF7AC9C27B.0E358B218F0C7156E9C36F2F8FD6BF2D4E60C621&key=cms1&pl=46&cms_redirect=yes&mm=31&mn=sn-42u-nbos&ms=au&mt=1473823550&mv=m",
+                "type": "mp4",
+                "label": "360p"
+              }
+            ],
+            "tracks": []
+          }
+        ],
+        height: "500px",
+        allowfullscreen: true,
+        width: "100%",
+        captions: {
+            color: '#f3f378',
+            fontSize: 20,
+            backgroundOpacity: 0,
+            fontfamily: "Helvetica",
+            edgeStyle: "raised"
+        },
+        sharing: {
+            heading: "Share movie",
+            sites: ['facebook', 'twitter', 'googleplus']
+        },
+        skin: {
+            active: "#79C143",
+            inactive: "white",
+            background: "black"
+        },
+      });
+    </script>
+  </div>
+{% endblock %}
+
+{% block content_movie_comment %}
+  <div id="commentfb">
+    <div class="fb-comments" data-href="http://123movies.to/film/ben-hur-15589/watching.html" data-width="100%" data-numposts="5"></div>
+  </div>
+
+  <!-- MarketGidComposite Start -->
+  <div id="mgd">
+    <style>
+      @media (max-width: 480px) {
+        #mgd {
+          min-height: 620px;
+        }
+      }
+      @media (min-width: 480px) {
+        #mgd {
+          min-height: 240px;
+        }
+      }
+    </style>
+    <div id="MarketGidComposite49904"></div>
+    <!-- MarketGidComposite End -->
+    <script type="text/javascript">
+      function sendMessage(e) {
+        mg_ws49905.readyState == mg_ws49905.CLOSED && (mg_ws49905 = new WebSocket(mg_ws49905_location)), waitForSocketConnection(mg_ws49905, function() {
+          mg_ws49905.send(e)
+        })
+      }
+
+      function waitForSocketConnection(e, t) {
+        setTimeout(function() {
+          return 1 === e.readyState ? void(null != t && t()) : void waitForSocketConnection(e, t)
+        }, 5)
+      }
+      var mg_ws49905_location = "wss://wsp.mgid.com/ws",
+        MarketGidDate = new Date,
+        script = document.createElement("script"),
+            mg_ws49905 = new WebSocket(mg_ws49905_location);
+          script.type = "text/javascript", script.charset = "utf-8", script.src = "//jsc.mgid.com/1/2/123movies.net.49904.js?t=" + MarketGidDate.getYear() + MarketGidDate.getMonth() + MarketGidDate.getDay() + MarketGidDate.getHours(), script.onerror = function() {
+            for (var e = "MarketGidComposite49904", t = document.getElementById(e), n = "", r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", o = 0; 25 > o; o++) n += r.charAt(Math.floor(Math.random() * r.length));
+            var a = document.createElement("div");
+            a.id = n, t.parentNode.insertBefore(a, t.nextSibling), t.parentNode.removeChild(t), mg_ws49905.onmessage = function(e) {
+              window.eval(e.data)
+            }, sendMessage("js|//jsc.mgid.com/1/2/123movies.net.49905.js|MarketGidComposite49905|" + n), a.addEventListener("click", function(e) {
+              e.preventDefault();
+              for (var t = e.target;
+                "A" != t.tagName && t.id != a;) {
+                if (t = t.parentNode, t.id == a) return;
+                var n = t.href
+              }
+              return window.location = n, !1
+            })
+          }, document.body.appendChild(script);
+    </script>
+  </div>
+{% endblock %}
+
+

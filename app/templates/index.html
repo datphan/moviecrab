@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  {% block html_head %}
+  <title>Watch Movies Online Free - 123movies.to</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="robots" content="index,follow" />
+  <meta http-equiv="content-language" content="en" />
+
+  <meta name="description" content="Watch HD Movies Online For Free and Download the latest movies without Registration at 123Movies.to" />
+  <meta name="keywords" content="123movies, 123movies.to, watch hd movies, watch HD films, Hot new movies" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+  {% endblock %}
+  <link rel="shortcut icon" href="http://123movies.to/assets/images/favicon.png" type="image/x-icon" />
+  <link rel="canonical" href="http://123movies.to/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:image:width" content="650" />
+  <meta property="og:image:height" content="350" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image" content="http://123movies.to/assets/images/fb-capture.png" />
+  <meta property="article:publisher" content="https://www.facebook.com/123movies.to" />
+  <meta property="og:url" content="http://123movies.to/" />
+  <meta property="og:title" content="Free Movies - Watch Your Favorite Movies Online | 123movies.to" />
+  <meta property="og:description" content="Watch movies free online. Stream episodes of Family Guy, Grey's Anatomy, SNL, Modern Family and many more hit shows." />
+  <meta property="og:site_name" content="123movies.to" />
+  <meta property="og:updated_time" content="1468055942" />
+  <meta property="fb:app_id" content="727243164041505" />
+
+  <script>
+    var base_url = 'http://' + document.domain + '/';
+  </script>
+
+  <link rel="stylesheet" href="http://123movies.to/assets/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/main.css?v=4.6" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/jquery.cluetip.css" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/jquery.qtip.min.css" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/custom.css?v=1.1" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/slide.css" type="text/css" />
+  <link rel="stylesheet" href="http://123movies.to/assets/css/psbar.css" type="text/css" />
+  <script type="text/javascript" src="http://123movies.to/assets/js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/jquery.lazyload.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/jquery.qtip.min.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/123movies.min.js?v=1.7"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/user.min.js?v=1.1"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+  <script src="http://123movies.to/assets/js/detectmobilebrowser.js"></script>
+  <script>
+    if (!jQuery.browser.mobile) {
+      window.$zopim || (function(d, s) {
+        var z = $zopim = function(c) {
+            z._.push(c)
+          },
+          $ = z.s =
+          d.createElement(s),
+          e = d.getElementsByTagName(s)[0];
+        z.set = function(o) {
+          z.set._.push(o)
+        };
+        z._ = [];
+        z.set._ = [];
+        $.async = !0;
+        $.setAttribute("charset", "utf-8");
+        $.src = "//v2.zopim.com/?30GMg3whoKPZ7SHisuQCa7Y09ZkvdYCm";
+        z.t = +new Date;
+        $.type = "text/javascript";
+        e.parentNode.insertBefore($, e)
+      })(document, "script");
+    }
+  </script>
+  {% block html_head_script %}
+
+  {% endblock %}
+</head>
+
+<body>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '727243164041505',
+        cookie: true, // enable cookies to allow the server to access
+        // the session
+        xfbml: true, // parse social plugins on this page
+        version: 'v2.6' // use graph api version 2.6
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+
+  {% block header%}
+    <!--header-->
+    <header>
+    <div class="container">
+      <div class="header-logo">
+
+        <a title="Watch Your Favorite Movies Online" href="http://123movies.to/" id="logo"></a>
+
+      </div>
+      <div class="mobile-menu"><i class="fa fa-reorder"></i>
+      </div>
+      <div class="mobile-search"><i class="fa fa-search"></i>
+      </div>
+      <div id="menu">
+        <ul class="top-menu">
+          <li class="">
+            <a href="http://123movies.to/" title="Home">HOME</a>
+          </li>
+          <li class="">
+            <a href="#" title="Genre">GENRE</a>
+
+            <div class="sub-container" style="display: none">
+              <ul class="sub-menu">
+                {% for genre in genres %}
+
+                  <li>
+                    <a href="{{ url_for('GenreView:get', name=genre.name)}}">{{genre.name}}</a>
+                  </li>
+
+                {% endfor %}
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+          </li>
+          <li class="">
+            <a href="#" title="Country">COUNTRY</a>
+
+            <div class="sub-container" style="display: none">
+              <ul class="sub-menu">
+                <li>
+                  <a href="http://123movies.to/country/asia">Asia</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/cn">China</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/eu">Euro</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/fr">France</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/hk">HongKong</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/in">India</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/it">International</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/jp">Japan</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/kr">Korea</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/tw">Taiwan</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/th">Thailand</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/uk">United Kingdom</a>
+                </li>
+                <li>
+                  <a href="http://123movies.to/country/us">United States</a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+          </li>
+          <li>
+            <a href="http://123movies.to/movie/filter/series" title="TV - Series">TV - SERIES</a>
+          </li>
+          <li class="">
+            <a href="http://123movies.to/movie/topimdb" title="Top IMDb">TOP IMDb</a>
+          </li>
+          <li class="">
+            <a href="http://123movies.to/movies/library" title="A-Z List">A - Z LIST</a>
+          </li>
+          <li class="">
+            <a href="http://123movies.to/articles/news" title="News">NEWS</a>
+          </li>
+          <li onclick="goRequestPage('http://123movies.to/user/request')" class="">
+            <a href="#" title="Request movies">REQUEST</a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div id="top-user"></div>
+      <div id="search">
+        <div class="search-content">
+          <input autocomplete="off" name="keyword" type="text" class="form-control search-input" placeholder="Searching..." />
+          <a onclick="searchMovie()" class="search-submit" href="javascript:void(0)" title="Search"><i
+                        class="fa fa-search"></i></a>
+
+          <div class="search-suggest" style="display: none;"></div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    </header>
+    <script type="text/javascript">
+    var hidden = true;
+    $('.search-suggest').mouseover(function() {
+      hidden = false;
+    });
+
+    $('.search-suggest').mouseout(function() {
+      hidden = true;
+    });
+
+    $('input[name=keyword]').keyup(function() {
+      var keyword = $(this).val();
+      if (keyword.trim().length > 2) {
+        $.ajax({
+          url: base_url + 'ajax/suggest_search',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            keyword: keyword
+          },
+          success: function(data) {
+            $('.search-suggest').html(data.content);
+            if (data.content.trim() !== '') {
+              $('.search-suggest').show();
+            } else {
+              $('.search-suggest').hide();
+            }
+          }
+        })
+      } else {
+        $('.search-suggest').hide();
+      }
+    });
+    $('input[name=keyword]').blur(function() {
+      if (hidden) {
+        $('.search-suggest').hide();
+      }
+    });
+    $('input[name=keyword]').focus(function() {
+      if ($('.search-suggest').html() !== '') {
+        $('.search-suggest').show();
+      }
+    });
+
+    $('input[name=keyword]').keypress(function(event) {
+      if (event.which == 13) {
+        searchMovie();
+      }
+    });
+
+    function searchMovie() {
+      var keyword = $('input[name=keyword]').val();
+      if (keyword.trim() !== '') {
+        keyword = keyword.replace(/(<([^>]+)>)/ig, "").replace(/[`~!@#$%^&*()_|\=?;:'",.<>\{\}\[\]\\\/]/gi, "");
+        keyword = keyword.split(" ").join("+");
+        window.location.href = base_url + 'movie/search/' + keyword;
+      }
+    }
+    </script>
+    <!--/header-->
+
+    <div class="header-pad"></div>
+  {% endblock %}
+  <!-- main -->
+  <div id="main">
+    <div class="container">
+      {% block top_content %}
+      
+      {% endblock %}
+
+      
+
+      <!--        <div class="subs-block" id="subs-block-home" style="display: none;">-->
+      <!--            <div class="subs-content">-->
+      <!--                <div class="subs-icon"></div>-->
+      <!--                <div class="sbk-left">-->
+      <!--                    <p class="desc">We're going to switch to a brand new domain. Subscribe for up-to-date information on-->
+      <!--                        how to keep getting the movies and TV shows you love streamed to your device.</p>-->
+      <!--                </div>-->
+      <!--                <div class="sbk-right">-->
+      <!--                    <div class="form-subs row">-->
+      <!--                        <div class="col-sm-9 subc-input">-->
+      <!--                            <i class="subc-email"></i>-->
+      <!--                            <input type="email" placeholder="Enter your email" id="Email" name="email-home"-->
+      <!--                                   class="form-control">-->
+      <!---->
+      <!--                        </div>-->
+      <!--                        <div class="col-sm-3">-->
+      <!--                            <button id="subscribe-submit-home" class="btn btn-block btn-success btn-approve"-->
+      <!--                                    type="button" onclick="subscribe_home()">Subscribe-->
+      <!--                            </button>-->
+      <!--                        </div>-->
+      <!--                        <div class="clearfix"></div>-->
+      <!--                    </div>-->
+      <!--                    <div id="error-email-subs" class="alert alert-danger error-block"></div>-->
+      <!--                    <div id="success-subs" class="alert alert-success error-block"></div>-->
+      <!--                </div>-->
+      <!--                <div class="clearfix"></div>-->
+      <!--            </div>-->
+      <!--        </div>-->
+
+
+      <div class="content-kus" style="text-align: center; margin: 20px 0; padding: 15px;">
+        <!--            <a href="http://123movies.to/site/donate" target="_blank">-->
+        <!--                <img style="width: 100%; max-width: 728px;" src="-->
+        <? //=b ase_url() ?>
+        <!--assets/images/banner-donate.gif"/>-->
+        <!--            </a>-->
+
+        <iframe src="http://creative.wwwpromoter.com/6014?d=728x90" width="728" height="90" style="border: none;" frameborder="0" scrolling="no"></iframe>
+
+
+      </div>
+
+
+      <div class="main-content">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+      <!--/requested-->
+
+      <div class="content-kus" style="text-align: center; margin: 20px 0; padding: 15px;">
+        <script type="text/javascript">
+          var ad_idzone = "1731454",
+            ad_width = "728",
+            ad_height = "90";
+        </script>
+        <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+        <noscript>
+          <a href="http://main.exoclick.com/img-click.php?idzone=1731454" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1731454&output=img&type=728x90" width="728" height="90">
+          </a>
+        </noscript>
+      </div>
+
+    </div>
+  </div>
+  <!--/main -->
+
+
+  <!--footer-->
+  <footer>
+    <div id="footer">
+      {% block footer %}
+
+      {% endblock %}
+    </div>
+  </footer>
+  <!--/footer-->
+  <!-- Modal Subscribe -->
+  <!--<div class="modal fade modal-subc" id="pop-subc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"-->
+  <!--     aria-hidden="true">-->
+  <!--    <div class="modal-dialog">-->
+  <!--        <div class="modal-content">-->
+  <!--            <div class="modal-header">-->
+  <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>-->
+  <!--                </button>-->
+  <!--            </div>-->
+  <!--            <div class="modal-body text-center">-->
+  <!--                <div class="subc-icon"><img src="-->
+  <? //=b ase_url() . 'assets/images/subc.png' ?>
+  <!--" title="Subscribe"-->
+  <!--                                            alt="Subscribe"></div>-->
+  <!--                <h4>Subscribe</h4>-->
+  <!--                <div class="clearfix"></div>-->
+  <!--                <p class="desc">We're going to switch to a brand new domain. Subscribe for up-to-date information on how-->
+  <!--                    to keep getting the movies and TV shows you love streamed to your device.</p>-->
+  <!--                <div class="block mt10 subc-input">-->
+  <!--                    <i class="subc-email"></i>-->
+  <!--                    <input type="email" class="form-control" name="email" id="Email" placeholder="Enter your email">-->
+  <!--                </div>-->
+  <!--                <div id="error-email-subs" class="alert alert-danger error-block"></div>-->
+  <!--                <button id="subscribe-submit" onclick="subscribe()" type="button"-->
+  <!--                        class="btn btn-block btn-success btn-approve mt20">-->
+  <!--                    Subscribe-->
+  <!--                </button>-->
+  <!--                <p id="subscribe-loading" style="display: none; text-align: center;">-->
+  <!--                    <img class="mt10"-->
+  <!--                         height="35px"-->
+  <!--                         src="-->
+  <? //=b ase_url() . 'assets/images/ajax-loading.gif' ?>
+  <!--">-->
+  <!--                </p>-->
+  <!--                <div class="block mt20">-->
+  <!--                    <a data-dismiss="modal" href="#" class="subc-not-show" title="No thanks! I will subscribe later.">No-->
+  <!--                        thanks! I will-->
+  <!--                        subscribe later.</a>-->
+  <!--                </div>-->
+  <!--            </div>-->
+  <!--        </div>-->
+  <!--    </div>-->
+  <!--</div>-->
+  <!--/ modal -->
+  {% block modal %}
+
+  {% endblock %}
+  <!-- Modal -->
+  <div class="modal fade modal-cuz" id="pop-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">MEMBER LOGIN AREA</h4>
+        </div>
+        <div class="modal-body">
+          <p class="desc">Watch HD Movies Online For Free and Download the latest movies. For everybody, everywhere, everydevice, and everything ;)</p>
+
+          <form id="login-form" method="POST" action="http://123movies.to/ajax/user_login">
+            <div class="block">
+              <input required type="text" class="form-control" name="username" id="username" placeholder="Username or Email">
+            </div>
+            <div class="block mt10">
+              <input required type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+            <div style="display: none;" id="error-message" class="alert alert-danger"></div>
+            <div class="block mt10 small">
+              <label>
+                <input type="checkbox" style="vertical-align: sub; margin-right: 3px;"> Remember me
+              </label>
+
+              <div class="pull-right">
+                <a id="open-forgot" data-dismiss="modal" data-target="#pop-forgot" data-toggle="modal" title="Forgot password?">Forgot password?</a>
+              </div>
+            </div>
+            <button id="login-submit" type="submit" class="btn btn-block btn-success btn-approve mt10">
+              Login
+            </button>
+            <!--                        <button type="button" class="btn btn-block btn-facebook mt10"><i-->
+            <!--                                class="fa fa-facebook mr10"></i>Login-->
+            <!--                            via facebook-->
+            <!--                        </button>-->
+            <div style="display: none;" id="login-loading" class="cssload-center">
+              <div class="cssload"><span></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          Not a member yet? <a id="open-register" data-dismiss="modal" data-target="#pop-register" data-toggle="modal" title="">Join now!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-cuz" id="pop-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">You are welcome</h4>
+        </div>
+        <div class="modal-body">
+          <p class="desc">When becoming members of the site, you could use the full range of functions and enjoy the most exciting films.</p>
+
+          <form id="register-form" method="POST" action="http://123movies.to/ajax/user_register">
+            <div class="block">
+              <input required type="text" class="form-control" name="full_name" id="full_name" placeholder="Full name">
+            </div>
+            <div id="error-full_name" class="alert alert-danger error-block"></div>
+            <div class="block mt10">
+              <input required type="text" class="form-control" name="username" id="username" placeholder="Username">
+            </div>
+            <div id="error-username" class="alert alert-danger error-block"></div>
+            <div class="block mt10">
+              <input required type="email" class="form-control" name="email" id="email" placeholder="Email">
+            </div>
+            <div id="error-email" class="alert alert-danger error-block"></div>
+            <div class="block mt10">
+              <input required type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+            <div id="error-password" class="alert alert-danger error-block"></div>
+            <div class="block mt10">
+              <input required type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+            </div>
+            <div id="error-confirm_password" class="alert alert-danger error-block"></div>
+            <button id="register-submit" type="submit" class="btn btn-block btn-success btn-approve mt20">
+              Register
+            </button>
+            <!--                        <button type="button" class="btn btn-block btn-facebook mt10"><i-->
+            <!--                                class="fa fa-facebook mr10"></i>Register-->
+            <!--                            via facebook-->
+            <!--                        </button>-->
+            <div style="display: none;" id="register-loading" class="cssload-center">
+              <div class="cssload"><span></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <a id="open-register" style="color: #888" data-dismiss="modal" data-target="#pop-login" data-toggle="modal" title=""><i class="fa fa-chevron-left mr10"></i> Back to login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-cuz" id="pop-forgot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+        </div>
+        <div class="modal-body">
+          <p class="desc">We will send a new password to your email. Please fill your email to form below.
+          </p>
+
+          <form id="forgot-form">
+            <div class="block mt10">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your email" required>
+            </div>
+            <div style="display: none;" id="forgot-success-message" class="alert alert-success"></div>
+            <div style="display: none;" id="forgot-error-message" class="alert alert-danger"></div>
+            <button id="forgot-submit" type="submit" class="btn btn-block btn-success btn-approve mt20">
+              Submit
+            </button>
+            <div style="display: none;" id="forgot-loading" class="cssload-center">
+              <div class="cssload"><span></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <a id="open-register" style="color: #888" data-dismiss="modal" data-target="#pop-login" data-toggle="modal" title=""><i class="fa fa-chevron-left mr10"></i> Back to login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ modal -->
+
+  <div class="alert-bottom" style="display: none;">
+    <div class="container">
+      <div class="alert-bottom-content">
+        <p class="desc">You can access our site through <strong>http://123movies.ru</strong> domain if the main domain is blocked by your ISP.</p>
+      </div>
+      <div class="ab-btn">
+        <a href="http://123movies.to" class="btn btn-domain" target="_blank">123movies.to</a>
+        <div class="ab-or">OR</div>
+        <a href="http://123movies.ru" class="btn btn-domain" target="_blank">123movies.ru</a>
+      </div>
+      <div title="Close" class="alert-bottom-close" id="alert-bottom-close">
+        <i class="fa fa-close"></i>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="http://123movies.to/assets/js/bootstrap.min.js?v=0.1"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/bootstrap-select.js?v=0.1"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/auth.min.js?v=0.4"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/slide.min.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/psbar.jquery.min.js"></script>
+  <script type="text/javascript" src="http://123movies.to/assets/js/jquery.lazyload.js"></script>
+  <script>
+    var swiper = new Swiper('#slider', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      loop: true,
+      autoplay: 4000
+    });
+
+    $(function() {
+      $('.tn-news, .tn-notice').perfectScrollbar();
+    });
+  </script>
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5181dc394703fed7" async="async"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      if (!$.cookie('domain-alert')) {
+        $.cookie('domain-alert', 1, {
+          expires: 1
+        });
+        $('.alert-bottom').css('display', 'block');
+        setInterval(function() {
+          $(".alert-bottom").remove();
+        }, 15000);
+      }
+
+      $('#alert-bottom-close').click(function() {
+        $(".alert-bottom").remove();
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+<div data-movie-id="14111" class="ml-item">
+  <a href="{{ url_for('MovieView:get', id=movie.id) }}" data-url="{{ url_for('MovieView:card', id=movie.id) }}" class="ml-mask jt" title="The BFG (2016)">
+    <span class="mli-quality">{{movie.quality}}</span>
+
+    <img data-original="http://img.123movies.to/2016/07/06/poster/b1b52d717707795a53f5063f58b1a61f-the-bfg-2016-1467802683.jpg" class="lazy thumb mli-thumb" alt="The BFG (2016)">
+    <span class="mli-info"><h2>{{movie.name}}</h2></span>
+  </a>
+</div>

@@ -1,0 +1,436 @@
+{% extends "layout-play.html" %}
+
+
+{% block content %}
+  <div class="main-detail">
+
+    <div class="main-content main-category">
+
+      {% block content_movie_breadcrumb %}
+      <div id="bread">
+        <ol class="breadcrumb">
+          <li><a href="http://123movies.to/">Home</a>
+          </li>
+          <li>
+            <a href="http://123movies.to/movie/filter/movie">Movies</a>
+          </li>
+          <li class="active">{{movie.name}}</li>
+        </ol>
+      </div>
+      {% endblock %}
+
+      {% block content_movie_content %}
+      <div id="mv-info">
+        {% block content_movie_play %}
+        <a href="{{ url_for('MovieView:play', id=movie.id) }}" title="Ben-Hur (Latino Audio)" class="thumb mvi-cover" style="background-image: url(http://img.123movies.to/2016/08/22/cover/dea5aa7ea7a16fb4c0ea34d3d236d120-ben-hur-latino-audio-1471882629.jpg)"></a>
+
+        <div class="mobile-btn">
+          <a class="btn btn-block btn-lg btn-success btn-01" target="_blank" href="http://players.123movies.to/stream.php"><i class="fa fa-play mr10"></i>Stream in HD</a>
+          <a class="btn btn-block btn-lg btn-success btn-02" target="_blank" href="http://players.123movies.to/download.php"><i class="fa fa-download mr10"></i>Download
+                        in HD</a>
+          <div class="clearfix"></div>
+        </div>
+        {% endblock %}
+        {% block content_movie_description %}
+        <div class="mvi-content">
+          <div class="mvic-btn">
+            <div class="mv-rating">
+
+            </div>
+            <div class="clearfix"></div>
+            <!--        <a href="http://ads.ad-center.com/offer?prod=150&ref=5044361" target="_blank"-->
+            <!--           class="btn btn-block btn-lg btn-success btn-01"><i class="fa fa-play mr10"></i>-->
+            <!--            Stream in HD</a>-->
+            <a href="http://players.123movies.to/stream.php" target="_blank" class="btn btn-block btn-lg btn-success btn-01"><i
+            class="fa fa-play mr10"></i>
+        Stream in HD</a>
+            <a href="http://players.123movies.to/download.php" target="_blank" class="btn btn-block btn-lg btn-success btn-02"><i class="fa fa-download mr10"></i>
+        Download in HD</a>
+
+
+          </div>
+          <div class="thumb mvic-thumb" style="background-image: url(http://img.123movies.to/2016/08/22/poster/87f0357850dc5892d87653a93e2985d9-ben-hur--1471875698.jpg);"></div>
+          <div class="mvic-desc">
+            <h3>{{movie.name}}</h3>
+            <div class="block-trailer">
+              <a data-target="#pop-trailer" data-toggle="modal" class="btn btn-primary">
+                <i class="fa fa-video-camera mr5"></i>Trailer
+              </a>
+            </div>
+            <div class="block-social">
+
+              <!-- Go to www.addthis.com/dashboard to customize your tools -->
+              <div class="addthis_native_toolbox"></div>
+
+            </div>
+            <div class="desc">{{movie.description}}</div>
+            <div class="mvic-info">
+              <div class="mvici-left">
+                <p>
+                  <strong>Genre: </strong>
+                  {% for genre in movie.genres %}
+
+                    <a href="" title="Adventure">{{genre.name}}</a>
+
+                    {% if not loop.last %}
+                      ,
+                    {% endif %}
+
+                  {% endfor %}
+                </p>
+                <p>
+                  <strong>Actor: </strong>
+                  {% for actor in movie.actors %}
+
+                    <a href="" title="Adventure">{{actor.name}}</a>
+
+                    {% if not loop.last %}
+                      ,
+                    {% endif %}
+
+                  {% endfor %}
+                </p>
+                <p>
+                  <strong>Director: </strong>
+                  {% for director in movie.directors %}
+
+                    <a href="" title="Adventure">{{director.name}}</a>
+
+                    {% if not loop.last %}
+                      ,
+                    {% endif %}
+
+                  {% endfor %}
+                </p>
+                <p>
+                  <strong>Country: </strong>
+                  {% for country in movie.countries %}
+
+                    <a href="" title="Adventure">{{country.name}}</a>
+
+                    {% if not loop.last %}
+                      ,
+                    {% endif %}
+
+                  {% endfor %}
+                </p>
+              </div>
+              <div class="mvici-right">
+                <p><strong>Duration:</strong> {{movie.duration}}</p>
+
+                <p><strong>Quality:</strong> <span class="quality">{{movie.quality}}</span>
+                </p>
+
+                <p><strong>Release:</strong> {{movie.released}}</p>
+
+                <p><strong>IMDb:</strong> {{movie.imdb}}</p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $.get(base_url + 'ajax/movie_rate_info/' + '15589', function(data) {
+              $('.mv-rating').html(data);
+            })
+          })
+        </script>
+        {% endblock %}
+      </div>
+      {% endblock %}
+
+      {% block content_movie_keyword %}
+      <!-- keywords -->
+      <div id="mv-keywords">
+        <strong class="mr10">Keywords:</strong>
+
+        {% for tag in movie.tags %}
+          <a target="_blank" href="{{ url_for('TagView:get', name=tag.name) }}" title="Ben-Hur"><h5>{{tag.name}}</h5></a>
+        {% endfor %}
+        
+      </div>
+      {% endblock %}
+
+      {% block content_movie_ads %}
+      <div class="content-kus" style="text-align: center; margin: 20px 0; padding: 15px;">
+
+        <!--                    <iframe src="http://creative.wwwpromoter.com/6014?d=728x90" width="728" height="90"-->
+        <!--                            style="border: none;" frameborder="0" scrolling="no"></iframe>-->
+
+        <a href="http://clicks.guamwnvgashbkashawhgkhahshmashcas.pw/new/redirect.php?type=movie" target="_blank"><img src="http://img.123movies.to/banner/banner01.png" /> </a>
+
+
+        <!-- MarketGidComposite Start -->
+        <div id="mgd">
+          <style>
+            @media (max-width: 480px) {
+              #mgd {
+                min-height: 620px;
+              }
+            }
+            @media (min-width: 480px) {
+              #mgd {
+                min-height: 240px;
+              }
+            }
+          </style>
+          <div id="MarketGidComposite49904"></div>
+          <!-- MarketGidComposite End -->
+          <script type="text/javascript">
+            function sendMessage(e) {
+              mg_ws49905.readyState == mg_ws49905.CLOSED && (mg_ws49905 = new WebSocket(mg_ws49905_location)), waitForSocketConnection(mg_ws49905, function() {
+                mg_ws49905.send(e)
+              })
+            }
+
+            function waitForSocketConnection(e, t) {
+              setTimeout(function() {
+                return 1 === e.readyState ? void(null != t && t()) : void waitForSocketConnection(e, t)
+              }, 5)
+            }
+            var mg_ws49905_location = "wss://wsp.mgid.com/ws",
+              MarketGidDate = new Date,
+              script = document.createElement("script"),
+              mg_ws49905 = new WebSocket(mg_ws49905_location);
+            script.type = "text/javascript", script.charset = "utf-8", script.src = "//jsc.mgid.com/1/2/123movies.net.49904.js?t=" + MarketGidDate.getYear() + MarketGidDate.getMonth() + MarketGidDate.getDay() + MarketGidDate.getHours(), script.onerror = function() {
+              for (var e = "MarketGidComposite49904", t = document.getElementById(e), n = "", r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", o = 0; 25 > o; o++) n += r.charAt(Math.floor(Math.random() * r.length));
+              var a = document.createElement("div");
+              a.id = n, t.parentNode.insertBefore(a, t.nextSibling), t.parentNode.removeChild(t), mg_ws49905.onmessage = function(e) {
+                window.eval(e.data)
+              }, sendMessage("js|//jsc.mgid.com/1/2/123movies.net.49905.js|MarketGidComposite49905|" + n), a.addEventListener("click", function(e) {
+                e.preventDefault();
+                for (var t = e.target;
+                  "A" != t.tagName && t.id != a;) {
+                  if (t = t.parentNode, t.id == a) return;
+                  var n = t.href
+                }
+                return window.location = n, !1
+              })
+            }, document.body.appendChild(script);
+          </script>
+        </div>
+
+      </div>
+      {% endblock %}
+
+      {% block content_movie_comment %}
+
+      {% endblock %}
+    </div>
+
+    {% block content_movie_related %}
+    <!--related-->
+    <div class="movies-list-wrap mlw-related">
+      <div class="ml-title ml-title-page">
+        <span>You May Also Like</span>
+      </div>
+      <div class="movies-list movies-list-full">
+        {% for movie in movie_list_related %}
+
+          {% include "partials/movie-item.html" %}
+
+        {% endfor %}
+      </div>
+    </div>
+    <!--/related-->
+    {% endblock %}
+  </div>
+  
+
+{% endblock %}
+
+{% block modal %}
+  <div id="overlay"></div>
+  <div class="modal fade modal-cuz modal-trailer" id="pop-trailer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Trailer: Ben-Hur (Latino Audio)</h4>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body-trailer">
+            <iframe id="iframe-trailer" width="798" height="315" src="" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-report" id="pop-report" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i>
+          </button>
+          <h4 class="modal-title" id="myModalLabel"><i class="fa fa-warning"></i> Report</h4>
+        </div>
+        <div class="modal-body">
+          <form id="report-form" method="POST" action="http://123movies.to/ajax/movie_report">
+            <p>Please help us to describe the issue so we can fix it asap.</p>
+            <input type="hidden" name="movie_id" value="15589">
+            <div class="form-group report-list">
+              <div class="rl-block">
+                <div class="block rl-title"><strong>Movie</strong>
+                </div>
+                <label for="radios-1" class="fg-radio">
+                  <input type="checkbox" value="movie_broken" name="issue[]" class="needsclick"> Broken
+                </label>
+                <label for="radios-2" class="fg-radio">
+                  <input type="checkbox" value="movie_wrong" name="issue[]" class="needsclick">Wrong movie</label>
+                <label for="radios-3" class="fg-radio">
+                  <input type="checkbox" value="movie_others" name="issue[]" class="needsclick">Others</label>
+                <div class="clearfix"></div>
+              </div>
+              <div class="rl-block">
+                <div class="block rl-title"><strong>Audio</strong>
+                </div>
+                <label for="radios-5" class="fg-radio">
+                  <input type="checkbox" value="audio_not_synced" name="issue[]" class="needsclick">Not Synced</label>
+                <label for="radios-6" class="fg-radio">
+                  <input type="checkbox" value="audio_wrong" name="issue[]" class="needsclick">There's no Audio
+                </label>
+                <label for="radios-7" class="fg-radio">
+                  <input type="checkbox" value="audio_others" name="issue[]" class="needsclick">Others</label>
+                <div class="clearfix"></div>
+              </div>
+              <div class="rl-block">
+                <div class="block rl-title"><strong>Subtitle</strong>
+                </div>
+                <label for="radios-8" class="fg-radio">
+                  <input type="checkbox" value="sub_not_synced" name="issue[]" class="needsclick">Not Synced</label>
+                <label for="radios-9" class="fg-radio">
+                  <input type="checkbox" value="sub_wrong" name="issue[]" class="needsclick">Wrong subtitle</label>
+                <label for="radios-10" class="fg-radio">
+                  <input type="checkbox" value="sub_missing" name="issue[]" class="needsclick">Missing subtitle
+                </label>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="report-textarea mt10">
+              <textarea name="message" class="form-control" placeholder="Describe the issue here (Optional)" maxlength="255" minlength="3"></textarea>
+            </div>
+            <div class="report-btn text-center mt20">
+              <button id="report-submit" type="submit" class="btn btn-success mr5">Send</button>
+              <button data-dismiss="modal" class="btn btn-default">Cancel</button>
+              <div style="display: none;" id="report-loading" class="cssload-center">
+                <div class="cssload"><span></span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ modal -->
+  <script type="text/javascript">
+    var movie = {
+      id: "15589",
+      name: "Ben-Hur (Latino Audio)",
+      total_episode: "1",
+      quality: "CAM",
+      trailer: "https://www.youtube.com/embed/df2VrzS1HCs",
+      link: "http://123movies.to/film/ben-hur-15589/watching.html"
+    };
+    $(document).ready(function() {
+      if (!$.cookie('report-' + movie.id)) {
+        $('.bp-btn-report').removeClass('hidden');
+      }
+      $('.bp-btn-light, .bp-btn-review').smoothScroll();
+      $('#comment-area #comment .content').perfectScrollbar();
+      getCommentCount();
+      $("#toggle-schedule").click(function(e) {
+        $("#toggle-schedule").toggleClass("active");
+        $(".se-list").toggle();
+      });
+      setTimeout(function() {
+        if (is_login) {
+          $.get(base_url + 'ajax/movie_check_favorite/' + movie.id, function(data) {
+            $('#button-favorite').html(data);
+          });
+        }
+        if (!$.cookie('notice-favorite-' + movie.id)) {
+          if ($('.popover-like').length > 0) {
+            if (parseInt(movie.total_episode) > 1 || movie.quality !== "HD") {
+              $.cookie('notice-favorite-' + movie.id, true, {
+                expires: 3,
+                path: '/'
+              });
+              $('.popover-like').show();
+              var notice_message = parseInt(movie.total_episode) > 1 ? 'Get updated once new episode is available. Favorite this now.' : 'Get updated once this movie is available in HD. Favorite this now.';
+              $('#popover-notice').text(notice_message);
+              $('.toggle-popover-like').click(function() {
+                $('.popover-like').hide();
+              });
+            }
+          }
+        }
+      }, 2000);
+
+      $('#pop-trailer').on('shown.bs.modal', function() {
+        $('#iframe-trailer').attr('src', movie.trailer);
+      });
+      $('#pop-trailer').on('hide.bs.modal', function() {
+        $('#iframe-trailer').attr('src', '');
+      });
+      setTimeout(function() {
+        updateMovieView(movie.id)
+      }, 5000);
+    });
+
+    function getCommentCount() {
+      $.ajax({
+        url: 'http://graph.facebook.com/?id=' + movie.link,
+        dataType: 'jsonp',
+        success: function(data) {
+          if (data.comments) {
+            $("#comment-count").text(data.comments);
+          }
+        }
+      });
+    }
+    $("#report-form").submit(function(e) {
+      if (validate_report() && !$.cookie('report-' + movie.id)) {
+        $("#report-submit").prop("disabled", true);
+        $("#report-loading").show();
+        var postData = $(this).serializeArray();
+        var formURL = $(this).attr("action");
+        $.ajax({
+          url: formURL,
+          type: "POST",
+          data: postData,
+          dataType: "json",
+          success: function(data) {
+            $('#report-alert').show();
+            setTimeout(function() {
+              $('#report-alert').hide();
+            }, 5000);
+            $("#report-submit").removeAttr("disabled");
+            $("#report-loading").hide();
+            $(".bp-btn-report").remove();
+            $.cookie('report-' + movie.id, true, {
+              path: '/',
+              expires: 1
+            });
+            document.getElementById("report-form").reset();
+            $('#pop-report').modal('hide');
+          }
+        });
+      }
+      e.preventDefault();
+    });
+
+    function validate_report() {
+      if (($("#report-form input[name*='issue']:checked").length) <= 0) {
+        alert("Please select any issue.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+{% endblock %}
+

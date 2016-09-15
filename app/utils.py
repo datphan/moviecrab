@@ -103,10 +103,20 @@ def add_filters(query, op_sequence, accepted_keys):
     model_class = query.column_descriptions[0]['type']  # assuming
 
     for op_item in op_sequence:
-        key = op_item.get('key')
-        operator = op_item.get('op')
-        value = op_item.get('value')
+        if type(op_item) is tuple:
+            key = op_item[0]
+            
+            operator = op_item[1]
 
+            value = op_item[2]
+        else:
+            key = op_item.get('key')
+
+            operator = op_item.get('op')
+
+            value = op_item.get('value')
+
+        print(accepted_keys)
         if key not in accepted_keys:
             continue
 
@@ -123,7 +133,9 @@ def add_filters(query, op_sequence, accepted_keys):
         else:
             raise ValueError('Invalid filter operator: {}'.format(operator))
 
+        print('>>>>>>>>>', getattr(column, attr)(value))
         query = query.filter(getattr(column, attr)(value))
+
     return query
 
 
