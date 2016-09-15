@@ -55,6 +55,8 @@ class Movie(db.Model):
     #rating_point = db.Column(db.Float())
     type = db.Column(ChoiceType(TYPES), nullable=False)
     #visit = db.Column(db.Integer())
+    poster = db.Column(db.String(500))
+    thumbnail = db.Column(db.String(500))
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
 
@@ -82,7 +84,6 @@ class Episode(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     description = db.Column(db.Text())
-    link = db.Column(db.String(500))
     subtitle = db.Column(db.String(500))
     duration = db.Column(db.Integer(), nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
@@ -90,6 +91,8 @@ class Episode(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
     server_id = db.Column(db.Integer, db.ForeignKey('server.id'))
     server = db.relationship('Server')
+
+    sources = db.relationship('Source', backref='episode')
 
     def __repr__(self):
         return '<Episode(id="%s", name="%s")>' % (self.id, self.name)
@@ -102,4 +105,25 @@ class Server(db.Model):
 
     def __repr__(self):
         return '<Server(id="%s", name="%s")>' % (self.id, self.name)
+
+
+class Source(db.Model):
+    QUALITIES = [
+        (u'cam', u'CAM'),
+        (u'mhd', u'480p'),
+        (u'hd', u'720p'),
+        (u'2k', u'1080p'),
+        (u'4k', u'4K')
+    ]
+
+    """docstring for Source"""
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    link = db.Column(db.String(500), nullable=False)
+    quality = db.Column(ChoiceType(QUALITIES), nullable=False)
+    episode_id = db.Column(db.Integer, db.ForeignKey('episode.id'))
+
+    def __repr__(self):
+        return '<Source(id="%s", link="%s")>' % (self.id, self.link)
+
+
         

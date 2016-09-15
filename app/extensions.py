@@ -33,7 +33,7 @@ jwt = JWT()
 # models must be imported before datastore initialization
 from .auth.models import User, Role
 from .people.models import People
-from .movie.models import Server, Movie, Episode
+from .movie.models import Server, Movie, Episode, Source
 from .genre.models import Genre
 from .tag.models import Tag
 from .country.models import Country
@@ -61,7 +61,7 @@ def init_apps(app):
                 genres=genre_datastore.find_genre_list(),
             )
 
-    from .movie.admin import MovieAdminView
+    from .movie.admin import MovieAdminView, MovieEpisodeAdminView
     from .people.admin import PeopleAdminView
 
     from .main.views import MainView
@@ -86,6 +86,7 @@ def init_apps(app):
     admin.add_view(ModelView(User, db.session, category='Users'))
     admin.add_view(ModelView(Role, db.session, category='Users'))
     admin.add_view(MovieAdminView(Movie, db.session, category='Movies'))
+    admin.add_view(MovieEpisodeAdminView(Episode, db.session, category='Movie sources'))
     admin.add_view(ModelView(Genre, db.session, category='Movies'))
     admin.add_view(ModelView(Tag, db.session, category='Movies'))
     admin.add_view(ModelView(Server, db.session, category='Movies'))

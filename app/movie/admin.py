@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #http://stackoverflow.com/questions/16319250/using-flask-admin-how-can-i-get-a-tag-field-supporting-un-existed-tags
 #https://codeseekah.com/2013/08/04/flask-admin-hacks-for-many-to-many-relationships/
-from .models import Episode, Movie
+from .models import Episode, Movie, Source
 from ..genre.models import Genre
 from ..people.models import People
 from ..country.models import Country
@@ -243,7 +243,11 @@ class PostModelViewInlineModelConverter(InlineModelConverter):
 from ..extensions import db
 
 class MovieAdminView(ModelView):
-    inline_models = (Episode, )
+    inline_models = [
+        (Episode, dict(
+            form_excluded_columns=['sources'],
+        ))
+    ]
 
     form_choices = {
         'type': Movie.TYPES,
@@ -291,3 +295,20 @@ class MovieAdminView(ModelView):
     #     form_class = super(MovieAdminView, self).scaffold_form()
     #     form_class.extra = fields.QuerySelectField(Genre.name)
     #     return form_class
+
+
+class MovieEpisodeAdminView(ModelView):
+    inline_models = [
+        (Source, dict(
+            form_choices = {
+                'quality': Source.QUALITIES
+            },
+
+        ))
+    ]
+
+    form_choices = {
+        'quality': Source.QUALITIES
+    }
+
+

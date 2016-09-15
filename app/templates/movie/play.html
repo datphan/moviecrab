@@ -24,7 +24,7 @@
       <i class="fa fa-warning mr5"></i> If the movie does not work, please try to stream it with other browser.
     </div>
   </div>
-  <div style="height: 500px;" id="media-player" class="cssload-center cssload-2x jw-skin-seven">
+  <div style="height: 500px;" id="media-player" class="cssload-center cssload-2x ">
     <div class="cssload"><span></span>
     </div>
   </div>
@@ -73,37 +73,65 @@
       <i class="fa fa-check"></i> Thanks for your report! We will fix it asap.
     </div>
   </div>
-
+  <script type="text/javascript">
+    var _PLAYLIST = [],
+        _SERVERS = [];
+  </script>
   <div id="list-eps">
     {% for name in servers %}
-    <div class="le-server server-active" id="server-10">
-      <div class="les-title">
-        <i class="fa fa-server mr5"></i>
-        <strong>{{name}}</strong>
+      {% set outer_loop = loop %}
+      <div class="le-server server-active" id="server-{{loop.index0}}">
+        <div class="les-title">
+          <i class="fa fa-server mr5"></i>
+          <strong>{{name}}</strong>
+        </div>
+        <div class="les-content">
+          {% for episode in servers[name] %}
+            <a class="btn-eps
+
+            {% if loop.first %}
+                first-ep
+            {% endif %}
+
+            {% if loop.last %}
+                last-ep
+            {% endif %}
+
+            " href="#main" onclick="_loadEpisode({{outer_loop.index0}}, {{loop.index0}})" episode-id="{{episode.id}}" id="ep-{{episode.id}}" title="CAM">{{episode.name}} {{episode.quality}}</a>
+
+            <script type="text/javascript">
+              _PLAYLIST.push({
+                  "sources": [
+                    {% for source in episode.sources %}
+                      {
+                        "file": {{source.link}},
+
+                        "type": "mp4",
+
+                        "label": {{source.quality}}
+                      },
+                    {% endfor %}
+                  ],
+                  "tracks": []
+              });
+            </script>
+          {% endfor %}
+        </div>
+        <div class="clearfix"></div>
       </div>
-      <div class="les-content">
-        {% for episode in servers[name] %}
-        <a class="btn-eps first-ep last-ep active" href="#main" onclick="loadEpisode(10,467647)" episode-id="467647" id="ep-467647" title="CAM">{{episode.name}} {{episode.quality}}</a>
-        {% endfor %}
-      </div>
-      <div class="clearfix"></div>
-    </div>
+      <script type="text/javascript">
+        _SERVERS.push(_PLAYLIST);
+
+        _PLAYLIST = [];
+      </script>
     {% endfor %}
     <div data-episodes="467762" id="server-backup"></div>
     <script type="text/javascript">
-      jwplayer('media-player').setup({
-        "playlist": [
-          {
-            "sources": [
-              {
-                "file": "https://r5---sn-42u-nbos.googlevideo.com/videoplayback?requiressl=yes&id=5804432291bb7504&itag=18&source=webdrive&ttl=transient&app=explorer&ip=2405:4800:529c:c7a8:903a:6270:ce2a:b0e8&ipbits=0&expire=1473837766&sparams=expire,id,ip,ipbits,itag,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=4ACA972D61A243D8C3269AC2FB363FFF7AC9C27B.0E358B218F0C7156E9C36F2F8FD6BF2D4E60C621&key=cms1&pl=46&cms_redirect=yes&mm=31&mn=sn-42u-nbos&ms=au&mt=1473823550&mv=m",
-                "type": "mp4",
-                "label": "360p"
-              }
-            ],
-            "tracks": []
-          }
-        ],
+      var _player = jwplayer('media-player'),
+          _currentServerIndex = 0;
+
+      _player.setup({
+        playlist: _SERVERS[0],
         height: "500px",
         allowfullscreen: true,
         width: "100%",
@@ -124,6 +152,42 @@
             background: "black"
         },
       });
+
+      function _setupServer(playlist) {
+        _player.setup({
+          playlist: playlist,
+          height: "500px",
+          allowfullscreen: true,
+          width: "100%",
+          captions: {
+              color: '#f3f378',
+              fontSize: 20,
+              backgroundOpacity: 0,
+              fontfamily: "Helvetica",
+              edgeStyle: "raised"
+          },
+          sharing: {
+              heading: "Share movie",
+              sites: ['facebook', 'twitter', 'googleplus']
+          },
+          skin: {
+              active: "#79C143",
+              inactive: "white",
+              background: "black"
+          },
+        });
+      }
+
+      function _loadEpisode(serverIndex, episodeIndex) {
+        if (_currentServerIndex != serverIndex) {
+          _setupServer(_SERVERS[serverIndex]);
+
+          _currentServerIndex = serverIndex;
+          return;
+        }
+
+        _player.playlistItem(episodeIndex);
+      }
     </script>
   </div>
 {% endblock %}
