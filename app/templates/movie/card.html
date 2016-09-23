@@ -1,20 +1,35 @@
-<div class="jtip-quality">CAM</div>
+<div class="jtip-quality">{{movie.quality}}</div>
 <div class="jtip-top">
     <div class="jt-info jt-imdb">IMDb: 5.2</div>
-    <div class="jt-info">2016</div>
-    <div class="jt-info">124 min</div>
+    <div class="jt-info">{{movie.released}}</div>
+    <div class="jt-info">{{movie.duration}}</div>
     <div class="clearfix"></div>
 </div>
-<p class="f-desc">Judah Ben-Hur (Jack Huston) loses everything after his adopted brother accuses the
- young prince of treason. Ben-Hur then returns to his homeland after ...</p>
-
+<p class="f-desc">{{movie.description}}</p>
     <div class="block">Country:
-        <a href="http://123movies.to/country/us" title="United States">United States</a>    </div>
+        {% for country in movie.countries %}
+
+          <a href="" title="Adventure">{{country.name}}</a>
+
+          {% if not loop.last %}
+            ,
+          {% endif %}
+
+        {% endfor %}
+    </div>
     <div class="block">Genre:
-        <a href="http://123movies.to/genre/adventure/" title="Adventure">Adventure</a>, <a href="http
-://123movies.to/genre/drama/" title="Drama">Drama</a>    </div>
+        {% for genre in movie.genres %}
+
+          <a href="" title="Adventure">{{genre.name}}</a>
+
+          {% if not loop.last %}
+            ,
+          {% endif %}
+
+        {% endfor %}
+    </div>
 <div class="jtip-bottom">
-    <a href="http://123movies.to/film/ben-hur-15589/watching.html"
+    <a href="{{ url_for('MovieView:play', id=movie.id) }}"
        class="btn btn-block btn-success"><i
             class="fa fa-play-circle mr10"></i>Watch movie</a>
     <button onclick="favorite(15589,1)"

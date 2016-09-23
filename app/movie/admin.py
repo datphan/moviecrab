@@ -11,9 +11,11 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.sqla.form import InlineModelConverter
 from flask_admin.contrib.sqla.ajax import QueryAjaxModelLoader
 from flask_admin.form.widgets import Select2Widget, Select2TagsWidget
-from flask_admin.form import Select2Field, Select2TagsField
+from flask_admin.form import Select2Field, Select2TagsField, ImageUploadField
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
+
+from ..extensions import file_upload_path
 
 
 # class InlineModelConverter(InlineModelConverterBase):
@@ -243,15 +245,28 @@ class PostModelViewInlineModelConverter(InlineModelConverter):
 from ..extensions import db
 
 class MovieAdminView(ModelView):
-    inline_models = [
-        (Episode, dict(
-            form_excluded_columns=['sources'],
-        ))
-    ]
+    # inline_models = [
+    #     (Episode, dict(
+    #         form_excluded_columns=['sources'],
+    #     ))
+    # ]
+
+    form_excluded_columns = ('episodes', 'created_at', 'updated_at')
 
     form_choices = {
         'type': Movie.TYPES,
-        'quality': Movie.QUALITIES
+        'quality': Movie.QUALITIES,
+    }
+
+    form_overrides = {
+        'poster': ImageUploadField
+    }
+
+    form_args = {
+        'poster': {
+            'base_path': file_upload_path,
+            'endpoint': 'movie'
+        }
     }
 
     # form_ajax_refs = {

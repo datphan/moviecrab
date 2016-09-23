@@ -112,7 +112,7 @@
     <div class="container">
       <div class="header-logo">
 
-        <a title="Watch Your Favorite Movies Online" href="http://123movies.to/" id="logo"></a>
+        <a title="Watch Your Favorite Movies Online" href="{{ url_for('MainView:index') }}" id="logo"></a>
 
       </div>
       <div class="mobile-menu"><i class="fa fa-reorder"></i>
@@ -122,7 +122,7 @@
       <div id="menu">
         <ul class="top-menu">
           <li class="">
-            <a href="http://123movies.to/" title="Home">HOME</a>
+            <a href="{{ url_for('MainView:index') }}" title="Home">HOME</a>
           </li>
           <li class="">
             <a href="#" title="Genre">GENRE</a>
@@ -132,7 +132,7 @@
                 {% for genre in genres %}
 
                   <li>
-                    <a href="{{ url_for('GenreView:get', name=genre.name)}}">{{genre.name}}</a>
+                    <a href="{{ url_for('GenreView:get', code=genre.code)}}">{{genre.name}}</a>
                   </li>
 
                 {% endfor %}
@@ -145,57 +145,25 @@
 
             <div class="sub-container" style="display: none">
               <ul class="sub-menu">
-                <li>
-                  <a href="http://123movies.to/country/asia">Asia</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/cn">China</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/eu">Euro</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/fr">France</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/hk">HongKong</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/in">India</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/it">International</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/jp">Japan</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/kr">Korea</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/tw">Taiwan</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/th">Thailand</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/uk">United Kingdom</a>
-                </li>
-                <li>
-                  <a href="http://123movies.to/country/us">United States</a>
-                </li>
+                {% for country in countries %}
+
+                  <li>
+                    <a href="{{ url_for('CountryView:get', code=country.code)}}">{{country.name}}</a>
+                  </li>
+
+                {% endfor %}
               </ul>
               <div class="clearfix"></div>
             </div>
           </li>
           <li>
-            <a href="http://123movies.to/movie/filter/series" title="TV - Series">TV - SERIES</a>
+            <a href="{{ url_for('MovieView:filter', type='series')}}" title="TV - Series">TV - SERIES</a>
           </li>
           <li class="">
-            <a href="http://123movies.to/movie/topimdb" title="Top IMDb">TOP IMDb</a>
+            <a href="{{ url_for('MovieView:filter', type='topimb')}}" title="Top IMDb">TOP IMDb</a>
           </li>
           <li class="">
-            <a href="http://123movies.to/movies/library" title="A-Z List">A - Z LIST</a>
+            <a href="{{ url_for('MovieView:index', )}}" title="A-Z List">A - Z LIST</a>
           </li>
           <li class="">
             <a href="http://123movies.to/articles/news" title="News">NEWS</a>

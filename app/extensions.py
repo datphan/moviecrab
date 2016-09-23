@@ -2,6 +2,9 @@
 
 """flask extensions"""
 
+import os
+import os.path as op
+
 from flask_heroku import Heroku
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -16,6 +19,7 @@ from flask_bower import Bower
 from .auth.datastore import SQLAlchemyAuthDatastore
 from .movie.datastore import SQLAlchemyMovieDatastore
 from .genre.datastore import SQLAlchemyGenreDatastore
+from .country.datastore import SQLAlchemyCountryDatastore
 from .people.datastore import SQLAlchemyPeopleDatastore
 from .tag.datastore import SQLAlchemyTagDatastore
 
@@ -29,6 +33,14 @@ mail = Mail()
 security = Security()
 cors = CORS()
 jwt = JWT()
+
+movie_qualities = [
+    (u'cam', u'CAM'),
+    (u'mhd', u'480p'),
+    (u'hd', u'720p'),
+    (u'2k', u'1080p'),
+    (u'4k', u'4K')
+]
 
 # models must be imported before datastore initialization
 from .auth.models import User, Role
@@ -44,9 +56,16 @@ movie_datastore = SQLAlchemyMovieDatastore(db)
 
 genre_datastore = SQLAlchemyGenreDatastore(db)
 
+country_datastore = SQLAlchemyCountryDatastore(db)
+
 people_datastore = SQLAlchemyPeopleDatastore(db)
 
 tag_datastore = SQLAlchemyTagDatastore(db)
+
+
+
+# Create directory for file fields to use
+file_upload_path = op.join(op.dirname(__file__), 'static/uploads')
 
 
 def init_apps(app):
@@ -55,11 +74,6 @@ def init_apps(app):
 
         DebugToolbarExtension(app)
 
-    @app.context_processor
-    def inject_user():
-        return dict(
-                genres=genre_datastore.find_genre_list(),
-            )
 
     from .movie.admin import MovieAdminView, MovieEpisodeAdminView
     from .people.admin import PeopleAdminView
@@ -68,6 +82,7 @@ def init_apps(app):
     from .movie.views import MovieView
     from .genre.views import GenreView
     from .tag.views import TagView
+    from .country.views import CountryView
 
     Bower(app)
 
@@ -98,3 +113,4 @@ def init_apps(app):
     MovieView.register(app)
     GenreView.register(app)
     TagView.register(app)
+    CountryView.register(app)

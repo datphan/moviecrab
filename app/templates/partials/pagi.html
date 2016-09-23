@@ -1,0 +1,35 @@
+{% if pagination %}
+<nav>
+  <ul class="pagination">
+
+    {% if pagination.current_page != 1 and pagination.current_page > pagination.limit_range %}
+
+      <li><a href="{{pagination.get_page_url(0)}}" data-ci-pagination-page="1">&lt;&lt; First</a>
+      </li>
+
+    {% endif %}
+
+    {% if pagination.has_prev %}
+      <li class="next"><a href="{{pagination.prev_url}}" data-ci-pagination-page="{{pagination.current_page-1}}" rel="next">&larr; Previous</a>
+      </li>
+    {% endif %}
+
+    {% for page_number in range(pagination.first_range+1, pagination.last_range+1) %}
+      <li {% if pagination.current_page == page_number %}class="active"{% endif %}><a href="{{pagination.get_page_url(page_number-1)}}" data-ci-pagination-page="{{page_number}}">{{page_number}}</a>
+      </li>
+    {% endfor %}
+
+    {% if pagination.has_next %}
+      <li class="next"><a href="{{pagination.next_url}}" data-ci-pagination-page="{{pagination.current_page+1}}" rel="next">Next &rarr;</a>
+      </li>
+    {% endif %}
+
+    {% if pagination.current_page != pagination.total_page and pagination.current_page < pagination.total_page - pagination.limit_range %}
+
+      <li><a href="{{pagination.get_page_url(pagination.total_page-1)}}" data-ci-pagination-page="{{pagination.total_page}}">Last &gt;&gt;</a>
+      </li>
+
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}

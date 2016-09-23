@@ -14,7 +14,8 @@ class MainView(FlaskView):
     def index(self):
         movie_list = movie_datastore.find_movie_list()
 
-        movie_list_lastest = movie_datastore.find_movie_list(filters=[('type', 'eq', 'single'), ])
+        movie_list_lastest = movie_datastore.find_movie_list(filters=[('type', 'eq', 'single'), ],
+                sort='-movie_updated_at')
 
         movie_list_tv = movie_datastore.find_movie_list(filters=[('type', 'eq', 'series'), ])
 

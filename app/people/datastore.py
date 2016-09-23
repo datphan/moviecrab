@@ -122,3 +122,6 @@ class SQLAlchemyPeopleDatastore(SQLAlchemyDatastore, PeopleDatastore):
 
     def delete_people(self, pid, **kwargs):
         self.delete_by_model_name('people', pid, **kwargs)
+
+    def filter_by(self, **kwargs):
+        return self.filter_by_model_name('people', **kwargs)

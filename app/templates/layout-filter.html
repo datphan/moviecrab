@@ -1,0 +1,206 @@
+{% extends "layout-main.html" %}
+
+{% block top_content %}
+
+
+{% endblock %}
+
+{% block content %}
+  <!--category-->
+  <div class="movies-list-wrap mlw-category">
+    <div class="ml-title ml-title-page">
+
+      {% block filter_content_header %}
+        
+      {% endblock %}
+
+      <div class="filter-toggle"><i class="fa fa-sort mr5"></i>Filter</div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div id="filter">
+      <div class="filter-btn">
+        <button onclick="filterMovies()" class="btn btn-lg btn-successful">Filter movies</button>
+      </div>
+      <div class="filter-content row">
+        <div class="col-sm-2 fc-main">
+          <span class="fc-title">Sort by</span>
+          <ul class="fc-main-list">
+            <li>
+              <a class="{% if filter_type == 'lastest' %}active{% endif %}" href="{{ url_for('MovieView:filter', type='lastest')}}"><i
+                      class="fa fa-clock-o mr5"></i>Latest</a>
+            </li>
+            <li>
+              <a class="{% if filter_type == 'view' %}active{% endif %}" href="{{ url_for('MovieView:filter', type='view')}}"><i
+                      class="fa fa-eye mr5"></i>Most
+                  viewed</a>
+            </li>
+            <li>
+              <a class="{% if filter_type == 'favorite' %}active{% endif %}" href="{{ url_for('MovieView:filter', type='favorite')}}"><i
+                      class="fa fa-heart mr5"></i>Most favorite</a>
+            </li>
+            <li>
+              <a class="{% if filter_type == 'rate' %}active{% endif %}" href="{{ url_for('MovieView:filter', type='rate')}}"><i
+                      class="fa fa-star mr5"></i>Most rating</a>
+            </li>
+            <li>
+              <a class="{% if filter_type == 'topimb' %}active{% endif %}" href="{{ url_for('MovieView:filter', type='topimb')}}"><i
+                      class="fa fa-fire mr5"></i>Top IMDb</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-10">
+          <div class="cs10-top">
+            <div class="fc-filmtype">
+              <span class="fc-title">Film Type</span>
+              <ul class="fc-filmtype-list">
+                <li>
+                  <label>
+                    <input name="category" {% if filter_category == 'all' %}checked{% endif %} value="all" type="radio"> All
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="category" {% if filter_category == 'movie' %}checked{% endif %} value="movie" type="radio"> Movies
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="category" {% if filter_category == 'series' %}checked{% endif %} value="series" type="radio"> TV-Series
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div class="fc-quality">
+              <span class="fc-title">Quality</span>
+              <ul class="fc-quality-list">
+                <li>
+                  <label>
+                    <input name="quality" {% if filter_quality == 'all' %}checked{% endif %} value="all" type="radio"> All
+                  </label>
+                </li>
+                {% for quality in qualities %}
+
+                  <li>
+                    <label>
+                      <input name="quality" {% if filter_quality == quality.0 %}checked{% endif %} value="{{quality.0}}" type="radio"> {{quality.1}}
+                    </label>
+                  </li>
+
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="fc-genre">
+            <span class="fc-title">Genre</span>
+            <ul class="fc-genre-list">
+              {% for item in genres %}
+
+                <li>
+                  <label>
+                    <input class="genre-ids" {% if has_item(item, filter_countries) %}checked{% endif %} value="{{item.code}}" name="genres[]" type="checkbox"> {{item.name}}
+                  </label>
+                </li>
+
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="fc-country">
+            <span class="fc-title">Country</span>
+            <ul class="fc-country-list">
+              {% for item in countries %}
+
+                <li>
+                  <label>
+                    <input class="country-ids" {% if has_item(item, filter_countries) %}checked{% endif %} value="{{item.code}}" name="countries[]" type="checkbox"> {{item.name}} </label>
+                </li>
+
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="fc-release">
+            <span class="fc-title">Release</span>
+            <ul class="fc-release-list">
+              <li>
+                <label>
+                  <input checked name="year" value="all" type="radio"> All
+                </label>
+              </li>
+
+              {% for item in range(current_year, current_year-5, -1) %}
+
+                <li>
+                  <label>
+                    <input value="{{item}}" name="year" type="radio"> {{item}} </label>
+                </li>
+
+              {% endfor %}
+
+              <li>
+                <label>
+                  <input name="year" value="older-{{current_year-5+1}}" type="radio"> Older
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      function filterMovies() {
+        var genres = [];
+        var countries = [];
+        $('.genre-ids:checked').each(function() {
+          genres.push($(this).val());
+        });
+        $('.country-ids:checked').each(function() {
+          countries.push($(this).val());
+        });
+        if (genres.length > 0) {
+          genres = genres.join(',');
+        } else {
+          genres = 'all';
+        }
+        if (countries.length > 0) {
+          countries = countries.join(',');
+        } else {
+          countries = 'all';
+        }
+        var year = $('input[name=year]:checked').val();
+        var quality = $('input[name=quality]:checked').val();
+        var category = $('input[name=category]:checked').val();
+        var url = "{{ url_for('MovieView:filter', type=filter_type) }}";
+        url += '?category='+category;
+        url += '&genres='+genres;
+        url += '&countries='+countries;
+        url += '&quality='+quality;
+        url += '&year='+year;
+        window.location.href = url;
+      }
+    </script>
+
+    <div id="pagination" class="pagination-wrap">
+      {% include "partials/pagi.html" %}
+    </div>
+
+    <div class="movies-list movies-list-full">
+      {% for movie in movie_list %}
+
+        {% include "partials/movie-item.html" %}
+
+      {% endfor %}
+
+      <div class="clearfix"></div>
+    </div>
+    
+    <div id="pagination" class="pagination-wrap">
+      {% include "partials/pagi.html" %}
+    </div>
+  </div>
+  <!--/category-->
+{% endblock %}

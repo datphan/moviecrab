@@ -126,3 +126,6 @@ class SQLAlchemyMovieDatastore(SQLAlchemyDatastore, MovieDatastore):
 
     def delete_movie(self, pid, **kwargs):
         self.delete_by_model_name('movie', pid, **kwargs)
+
+    def filter_by(self, **kwargs):
+        return self.filter_by_model_name('movie', **kwargs)

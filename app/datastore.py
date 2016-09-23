@@ -23,6 +23,8 @@ import inflection
 
 from .utils import extract_dict, add_filters
 
+from werkzeug.exceptions import abort
+
 
 class Datastore(object):
     """Abstract Datastore class.
@@ -146,6 +148,13 @@ class SQLAlchemyDatastore(Datastore):
         model = self.read_by_model_name(model_name, pid, **kwargs)
         self.delete(model)
         self.commit()
+
+    def filter_by_model_name(self, model_name, **kwargs):
+        model_class = self.get_model_class(model_name)
+
+        record = model_class.query.filter_by(**kwargs)
+
+        return record if record.first() is not None else abort(404)
 
 
 class MongoEngineDatastore(Datastore):

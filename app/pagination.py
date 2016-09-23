@@ -4,6 +4,45 @@ from flask import current_app, request, url_for
 
 from .utils import merge_dict
 
+import math
+
+class Pagination(object):
+    def __init__(self, query, before=None, after=None, limit=None, **kwargs):
+        self.limit_range = kwargs.get('limit_range') or 3
+
+    @property
+    def total_page(self):
+        return int(
+                    math.ceil(
+                        float(self.count) / self.limit
+                    )
+                )
+
+    @property
+    def current_page(self):
+        return int(
+                    math.ceil(
+                        math.floor(
+                            (self.limit + self.offset) / self.limit
+                        )
+                    )
+                )
+
+    @property
+    def first_range(self):
+        value = self.current_page - self.limit_range
+
+        return 0 if value <= 0 else value
+
+    @property
+    def last_range(self):
+        value = self.current_page + self.limit_range
+
+        return self.total_page if value >= self.total_page else value
+
+    def get_page_url(self, page_number):
+        return self.page_url(page_number * self.limit, self.limit)
+
 
 # TODO(hoatle): implement this
 class CursorPagination(object):
@@ -21,16 +60,18 @@ class TimePagination(object):
         pass
 
 
-class OffsetPagination(object):
+class OffsetPagination(Pagination):
     """offset-based pagination,
     see: https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4"""
 
-    def __init__(self, query, offset=None, limit=None):
+    def __init__(self, query, offset=None, limit=None, **kwargs):
         """initialize the offset based pagination
         :param query the query instance
         :param offset optional offset
         :param limit official limit
         """
+        super(OffsetPagination, self).__init__(query, offset, limit, **kwargs)
+
         pagination_limit = current_app.config.get('PAGINATION_LIMIT', 25)
 
         if offset is None:

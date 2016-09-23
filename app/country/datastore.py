@@ -122,3 +122,8 @@ class SQLAlchemyCountryDatastore(SQLAlchemyDatastore, CountryDatastore):
 
     def delete_country(self, pid, **kwargs):
         self.delete_by_model_name('country', pid, **kwargs)
+
+    def filter_by(self, **kwargs):
+        return self.filter_by_model_name('country', **kwargs)
+    
+

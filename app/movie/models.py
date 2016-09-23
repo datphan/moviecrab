@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from ..extensions import db
+from ..extensions import db, movie_qualities
 
 from sqlalchemy_utils import ChoiceType
 
@@ -31,13 +31,7 @@ tags = db.Table('tag_meta',
 );
 
 class Movie(db.Model):
-    QUALITIES = [
-        (u'cam', u'CAM'),
-        (u'mhd', u'480p'),
-        (u'hd', u'720p'),
-        (u'2k', u'1080p'),
-        (u'4k', u'4K')
-    ]
+    QUALITIES = movie_qualities
 
     TYPES = [
         (u'series', u'TV Series'),
@@ -49,7 +43,7 @@ class Movie(db.Model):
     slug = db.Column(db.String(255), unique=True)
     description = db.Column(db.Text())
     quality = db.Column(ChoiceType(QUALITIES), nullable=False)
-    imdb_id = db.Column(db.Integer())
+    imdb_id = db.Column(db.Integer(), nullable=False)
     duration = db.Column(db.Integer(), nullable=False)
     release = db.Column(db.DateTime(), nullable=False)
     #rating_point = db.Column(db.Float())
@@ -58,7 +52,7 @@ class Movie(db.Model):
     poster = db.Column(db.String(500))
     thumbnail = db.Column(db.String(500))
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
 
     episodes = db.relationship('Episode', backref='movie', lazy='dynamic')
 
@@ -87,7 +81,7 @@ class Episode(db.Model):
     subtitle = db.Column(db.String(500))
     duration = db.Column(db.Integer(), nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
     server_id = db.Column(db.Integer, db.ForeignKey('server.id'))
     server = db.relationship('Server')
@@ -103,18 +97,30 @@ class Server(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.Text())
 
+    @staticmethod
+    def insert_servers():
+        _list = [
+            {'name': 'Default', 'description': 'Current server'},
+            {'name': 'Google', 'description': 'Google video'},
+            {'name': 'Youtube', 'description': 'Youtube'},
+        ]
+
+        for item in _list:
+            record = Server.query.filter_by(name=item.get('name')).first()
+
+            if record is None:
+                record = Server(**item)
+
+                db.session.add(record)
+
+            db.session.commit()
+
     def __repr__(self):
         return '<Server(id="%s", name="%s")>' % (self.id, self.name)
 
 
 class Source(db.Model):
-    QUALITIES = [
-        (u'cam', u'CAM'),
-        (u'mhd', u'480p'),
-        (u'hd', u'720p'),
-        (u'2k', u'1080p'),
-        (u'4k', u'4K')
-    ]
+    QUALITIES = movie_qualities
 
     """docstring for Source"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -122,3 +122,8 @@ class SQLAlchemyGenreDatastore(SQLAlchemyDatastore, GenreDatastore):
 
     def delete_genre(self, pid, **kwargs):
         self.delete_by_model_name('genre', pid, **kwargs)
+
+    def filter_by(self, **kwargs):
+        return self.filter_by_model_name('genre', **kwargs)
+
+

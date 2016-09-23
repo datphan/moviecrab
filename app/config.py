@@ -26,6 +26,8 @@ class BaseConfig(object):
     JWT_EXPIRES_IN_MIN = 60 * 5  # 5 mins
     JWT_EXPIRES_IN_MAX = JWT_EXPIRATION_DELTA_MAX.total_seconds()
 
+    UPLOAD_FOLDER = 'uploads'
+
 
 class DevConfig(BaseConfig):
     """DevConfig for development configuration"""

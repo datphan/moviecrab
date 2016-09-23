@@ -8,4 +8,3 @@ __all__ = ['genre_bp']
 
 genre_bp = Blueprint('genre_bp', __name__)
 
-from . import views

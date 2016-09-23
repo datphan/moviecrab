@@ -10,6 +10,7 @@ from .utils import INSTANCE_FOLDER_PATH
 from .blueprints import register_blueprints
 from .extensions import init_apps
 from .errors import register_error_handlers
+from .template import init_template
 
 
 __all__ = ['create_app']
@@ -51,6 +52,7 @@ def _configure_app(app, config=None):
         app.config.from_object(config)
 
 
+
 def _configure_hooks(app):
     """configure hooks"""
     pass
@@ -73,6 +75,7 @@ def _configure_logging(app):
 
 def _configure_template_filters(app):
     """configure template filters"""
+    init_template(app)
     pass
 
 

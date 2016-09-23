@@ -122,3 +122,8 @@ class SQLAlchemyTagDatastore(SQLAlchemyDatastore, TagDatastore):
 
     def delete_tag(self, pid, **kwargs):
         self.delete_by_model_name('tag', pid, **kwargs)
+
+    def filter_by(self, **kwargs):
+        return self.filter_by_model_name('tag', **kwargs)
+    
+
