@@ -197,3 +197,7 @@ pylint_report.txt
 # docs
 _build
 _deploy
+
+# ...
+
+app/uploads

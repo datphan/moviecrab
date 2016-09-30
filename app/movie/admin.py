@@ -244,14 +244,32 @@ class PostModelViewInlineModelConverter(InlineModelConverter):
 
 from ..extensions import db
 
-class MovieAdminView(ModelView):
-    # inline_models = [
-    #     (Episode, dict(
-    #         form_excluded_columns=['sources'],
-    #     ))
-    # ]
+from werkzeug import secure_filename
+import os.path as op
+import time
 
-    form_excluded_columns = ('episodes', 'created_at', 'updated_at')
+def prefix_name_poster(obj, file_data):
+    name, ext = op.splitext(file_data.filename)
+    return '%s/' % obj.id + secure_filename('poster%s' % ext) + '?%s' % time.time() 
+
+
+def prefix_name_thumbnail(obj, file_data):
+    name, ext = op.splitext(file_data.filename)
+    return '%s/' % obj.id + secure_filename('thumbnail%s' % ext) + '?%s' % time.time() 
+
+class MovieAdminView(ModelView):
+    inline_models = [
+        (Episode, dict(
+            form_excluded_columns=['sources'],
+
+        ))
+    ]
+
+    
+
+    form_excluded_columns = (
+        #'episodes',
+        'created_at', 'updated_at')
 
     form_choices = {
         'type': Movie.TYPES,
@@ -259,14 +277,23 @@ class MovieAdminView(ModelView):
     }
 
     form_overrides = {
-        'poster': ImageUploadField
+        'poster': ImageUploadField,
+        'thumbnail': ImageUploadField,
     }
 
     form_args = {
         'poster': {
             'base_path': file_upload_path,
-            'endpoint': 'movie'
-        }
+            'allowed_extensions': ['jpeg', 'png', 'jpg'],
+            'namegen': prefix_name_poster,
+            'endpoint': 'uploads.static'
+        },
+        'thumbnail': {
+            'base_path': file_upload_path,
+            'allowed_extensions': ['jpeg', 'png', 'jpg'],
+            'namegen': prefix_name_thumbnail,
+            'endpoint': 'uploads.static'
+        },
     }
 
     # form_ajax_refs = {

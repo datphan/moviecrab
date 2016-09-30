@@ -5,7 +5,7 @@
 <div class="movies-list-wrap mlw-topview">
   <div class="ml-title">
     <span class="pull-left">Suggestion <i class="fa fa-chevron-right ml10"></i></span>
-    <a href="http://123movies.to/movie/filter/all" class="pull-right cat-more">View more »</a>
+    <a href="{{ url_for('api_1_0.movies:filter', type='suggestion') }}" class="pull-right cat-more">View more »</a>
     <ul role="tablist" class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" role="tab" href="#movie-featured" aria-expanded="false">Featured</a>
       </li>
@@ -159,7 +159,7 @@
 <div class="movies-list-wrap mlw-latestmovie">
   <div class="ml-title">
     <span class="pull-left">Latest Movies <i class="fa fa-chevron-right ml10"></i></span>
-    <a href="http://123movies.to/movie/filter/movie" class="pull-right cat-more">View more »</a>
+    <a href="{{ url_for('api_1_0.movies:filter', type='single') }}" class="pull-right cat-more">View more »</a>
 
     <div class="clearfix"></div>
   </div>
@@ -209,7 +209,7 @@
 <div class="movies-list-wrap mlw-requested">
   <div class="ml-title">
     <span class="pull-left">Requested <i class="fa fa-chevron-right ml10"></i></span>
-    <a href="http://123movies.to/movie/filter/all/latest/all/all/all/1" class="pull-right cat-more">View
+    <a href="{{ url_for('api_1_0.movies:filter', type='requested') }}" class="pull-right cat-more">View
                 more »</a>
   </div>
   <div class="clearfix"></div>

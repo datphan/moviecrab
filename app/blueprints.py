@@ -4,9 +4,8 @@
 
 from .main import main_bp
 from .movie import movie_bp
+from .uploads import uploads_bp
 from .api_1_0 import api_bp as api_1_0_bp
-
-from flask import Blueprint
 
 __all__ = ['register_blueprints']
 
@@ -17,4 +16,4 @@ def register_blueprints(app):
     app.register_blueprint(movie_bp)
     app.register_blueprint(api_1_0_bp)
 
-    app.register_blueprint(Blueprint('uploads', __name__))
+    app.register_blueprint(uploads_bp)

@@ -22,7 +22,7 @@
       {% block content_movie_content %}
       <div id="mv-info">
         {% block content_movie_play %}
-        <a href="{{ url_for('MovieView:play', id=movie.id) }}" title="Ben-Hur (Latino Audio)" class="thumb mvi-cover" style="background-image: url(http://img.123movies.to/2016/08/22/cover/dea5aa7ea7a16fb4c0ea34d3d236d120-ben-hur-latino-audio-1471882629.jpg)"></a>
+        <a href="{{ url_for('MovieView:play', id=movie.id) }}" title="Ben-Hur (Latino Audio)" class="thumb mvi-cover" style="background-image: url({{ url_for('uploads.static', filename=movie.poster) }})"></a>
 
         <div class="mobile-btn">
           <a class="btn btn-block btn-lg btn-success btn-01" target="_blank" href="http://players.123movies.to/stream.php"><i class="fa fa-play mr10"></i>Stream in HD</a>
@@ -49,7 +49,7 @@
 
 
           </div>
-          <div class="thumb mvic-thumb" style="background-image: url(http://img.123movies.to/2016/08/22/poster/87f0357850dc5892d87653a93e2985d9-ben-hur--1471875698.jpg);"></div>
+          <div class="thumb mvic-thumb" style="background-image: url({{ url_for('uploads.static', filename=movie.thumbnail) }});"></div>
           <div class="mvic-desc">
             <h3>{{movie.name}}</h3>
             <div class="block-trailer">

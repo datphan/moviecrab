@@ -78,4 +78,3 @@ class MovieView(FlaskView):
             pagination=pagination,
             movie_list=pagination.data)
 
-

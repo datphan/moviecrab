@@ -65,7 +65,7 @@ tag_datastore = SQLAlchemyTagDatastore(db)
 
 
 # Create directory for file fields to use
-file_upload_path = op.join(op.dirname(__file__), 'static/uploads')
+file_upload_path = op.join(op.dirname(__file__), 'uploads/static')
 
 
 def init_apps(app):

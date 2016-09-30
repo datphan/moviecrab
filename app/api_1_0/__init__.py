@@ -19,9 +19,10 @@ import errors
 from .users import UserResource
 from .token import TokenResource
 from .roles import RoleResource
-from .movie import EpisodeResource
+from .movie import EpisodeResource, MovieResource
 
 UserResource.register(api_bp)
 TokenResource.register(api_bp)
 RoleResource.register(api_bp)
 EpisodeResource.register(api_bp)
+MovieResource.register(api_bp)

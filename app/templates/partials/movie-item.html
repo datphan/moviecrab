@@ -2,7 +2,8 @@
   <a href="{{ url_for('MovieView:get', id=movie.id) }}" data-url="{{ url_for('MovieView:card', id=movie.id) }}" class="ml-mask jt" title="{{movie.name}}">
     <span class="mli-quality">{{movie.quality}}</span>
 
-    <img data-original="http://img.123movies.to/2016/07/06/poster/b1b52d717707795a53f5063f58b1a61f-the-bfg-2016-1467802683.jpg" class="lazy thumb mli-thumb" alt="{{movie.name}}">
+    <img data-original="{{ url_for('uploads.static', filename=movie.thumbnail) }}" class="lazy thumb mli-thumb" alt="{{movie.name}}">
+
     <span class="mli-info"><h2>{{movie.name}}</h2></span>
   </a>
 </div>

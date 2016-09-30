@@ -17,3 +17,11 @@ class EpisodeResource(Resource):
                 "tracks": []
             }
         ]
+
+class MovieResource(Resource):
+    def filter(self, type):
+        pagination = OffsetPagination(movie_datastore.find_movie_list(),
+                        limit=int(request.args.get('limit') or 10),
+                        offset=int(request.args.get('offset') or 0))
+
+        return pagination.data
