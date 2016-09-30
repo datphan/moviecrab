@@ -200,4 +200,4 @@ _deploy
 
 # ...
 
-app/uploads
+app/uploads/static
