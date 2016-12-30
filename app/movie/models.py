@@ -78,7 +78,7 @@ class Episode(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     description = db.Column(db.Text())
-    subtitle = db.Column(db.String(500))
+    # subtitle = db.Column(db.String(500))
     duration = db.Column(db.Integer(), nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -87,6 +87,7 @@ class Episode(db.Model):
     server = db.relationship('Server')
 
     sources = db.relationship('Source', backref='episode')
+    tracks = db.relationship('Track', backref='episode')
 
     def __repr__(self):
         return '<Episode(id="%s", name="%s")>' % (self.id, self.name)
@@ -132,4 +133,14 @@ class Source(db.Model):
         return '<Source(id="%s", link="%s")>' % (self.id, self.link)
 
 
-        
+class Track(db.Model):
+    """docstring for Track"""
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    link = db.Column(db.String(500), nullable=False)
+    label = db.Column(db.String(25))
+    episode_id = db.Column(db.Integer, db.ForeignKey('episode.id'))
+
+    def __repr__(self):
+        return '<Track(id="%s", link="%s")>' % (self.id, self.link)
+
+

@@ -9,7 +9,7 @@ from ..extensions import movie_datastore
 from flask.ext.classy import FlaskView, route
 
 from ..pagination import OffsetPagination
-
+    
 
 class MovieView(FlaskView):
     # route_base = '/movie'

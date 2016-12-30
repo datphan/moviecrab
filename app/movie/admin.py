@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #http://stackoverflow.com/questions/16319250/using-flask-admin-how-can-i-get-a-tag-field-supporting-un-existed-tags
 #https://codeseekah.com/2013/08/04/flask-admin-hacks-for-many-to-many-relationships/
-from .models import Episode, Movie, Source
+from .models import Episode, Movie, Source, Track
 from ..genre.models import Genre
 from ..people.models import People
 from ..country.models import Country
@@ -346,7 +346,8 @@ class MovieEpisodeAdminView(ModelView):
                 'quality': Source.QUALITIES
             },
 
-        ))
+        )),
+        Track,
     ]
 
 
